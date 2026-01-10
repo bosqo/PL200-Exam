@@ -354,6 +354,625 @@ The following questions are based on actual PL-200 exam content from multiple ve
 
 ---
 
+### Question 16: Dataverse Relationship Behavior
+
+**Scenario**: You have a Staff table and a Reviews table in Dataverse. When a staff record is deleted, all related review records must also be deleted.
+
+**Question**: Which relationship behavior should you configure?
+
+**Options**:
+- A. Referential, Remove Link
+- B. Referential, Restrict
+- C. Parental
+- D. Cascade None
+
+**Correct Answer**: C. Parental
+
+**Explanation**: Parental relationship behavior ensures that when a parent record is deleted, all child records are also deleted. Referential with Remove Link preserves child records by removing the link. Referential with Restrict prevents deletion of parent records with related children. Cascade None doesn't delete related records.
+
+---
+
+### Question 17: Gallery Clear Selection
+
+**Scenario**: You have a canvas app with a Gallery control displaying products with checkboxes. Users need to clear all product selections when they click a button.
+
+**Question**: What is the best approach to implement this functionality?
+
+**Options**:
+- A. Use Reset(Gallery1)
+- B. Set OnCheck to Collect(SelectedProducts, ThisItem) and OnUncheck to Remove(SelectedProducts, ThisItem), then use Clear(SelectedProducts) on the button
+- C. Use Reload(Gallery1)
+- D. Set Gallery.Selected = Blank()
+
+**Correct Answer**: B
+
+**Explanation**: You cannot reset controls that are within a Gallery from outside the gallery. The proper approach is to use a collection to track selected items via OnCheck (Collect) and OnUncheck (Remove), then clear the collection with Clear() when the button is clicked. This gives you full control over the selection state.
+
+---
+
+### Question 18: Business Rule Scope
+
+**Scenario**: You are creating a business rule for the Account table in a model-driven app. The rule should apply only to the Account main form, not to other forms or canvas apps.
+
+**Question**: Which scope should you select for the business rule?
+
+**Options**:
+- A. Entity
+- B. All Forms
+- C. Specific Form
+- D. Table
+
+**Correct Answer**: C. Specific Form
+
+**Explanation**:
+- **Entity/Table scope**: Applies to all forms and server-side operations (Canvas Apps, Power Automate, API)
+- **All Forms scope**: Applies to all forms in model-driven apps only
+- **Specific Form scope**: Applies only to the selected form
+Since the requirement is for one specific form, Specific Form is the correct answer.
+
+---
+
+### Question 19: Duplicate Detection Configuration
+
+**Scenario**: Contacts should be considered duplicates if they have the same email address AND the same last name. You need to configure duplicate detection.
+
+**Question**: What should you create?
+
+**Options**:
+- A. One duplicate detection rule with two conditions (email address and last name)
+- B. Two duplicate detection rules (one for email, one for last name)
+- C. One duplicate detection rule and one duplicate detection job
+- D. One duplicate detection rule with one condition using a combined field
+
+**Correct Answer**: A. One duplicate detection rule with two conditions (email address and last name)
+
+**Explanation**: A single duplicate detection rule can have multiple conditions. When multiple conditions are specified, ALL conditions must match for records to be considered duplicates (AND logic). You don't need separate rules for each field - you combine them in one rule.
+
+---
+
+### Question 20: Calculated vs Rollup Fields
+
+**Scenario**: You need to create a field on the Account table that shows the total revenue from all related Opportunity records.
+
+**Question**: Which column type should you use?
+
+**Options**:
+- A. Calculated column
+- B. Rollup column
+- C. Formula column
+- D. Lookup column
+
+**Correct Answer**: B. Rollup column
+
+**Explanation**: Rollup columns aggregate values from related records (child records in a relationship). They support SUM, COUNT, MIN, MAX, and AVG functions. Calculated and Formula columns can only use data from the current record, not related records. Rollup columns are specifically designed for aggregating data across relationships.
+
+---
+
+### Question 21: Power Automate Approval Type
+
+**Scenario**: You need to create an approval workflow where a request must be approved by BOTH a manager AND the finance department. If either rejects, the request is rejected.
+
+**Question**: Which approval type should you use?
+
+**Options**:
+- A. First to respond
+- B. Everyone must approve
+- C. Sequential approval
+- D. Parallel approval with Everyone must approve
+
+**Correct Answer**: B. Everyone must approve (or D if treated as parallel)
+
+**Explanation**: When all approvers must approve, use the "Everyone must approve" response type. The "Wait for an approval" action can be configured with "Approval type: Everyone must approve" to ensure all designated approvers must approve before proceeding. This is different from "First to respond" where only one approval is needed.
+
+---
+
+### Question 22: Solution Layers and Managed Solutions
+
+**Scenario**: You are developing a solution in a development environment. You need to deploy it to production. What should you do?
+
+**Question**: Which approach should you follow?
+
+**Options**:
+- A. Export the solution as managed and import it to production
+- B. Export the solution as unmanaged and import it to production
+- C. Make changes directly in production as a managed solution
+- D. Export as managed, then convert to unmanaged in production
+
+**Correct Answer**: A. Export the solution as managed and import it to production
+
+**Explanation**: Best practice is to:
+- **Development**: Work in unmanaged solutions
+- **Production**: Deploy as managed solutions
+- Managed solutions can't be modified in the target environment (enforces proper change control)
+- Deleting a managed solution removes all its components
+- You cannot make changes to a managed solution, even as a system administrator
+
+---
+
+### Question 23: Alternate Keys
+
+**Scenario**: You need to integrate an external system with Dataverse. The external system uses an employee ID as a unique identifier, but Dataverse uses GUIDs. You need to allow the external system to reference records using the employee ID.
+
+**Question**: What should you configure?
+
+**Options**:
+- A. Create a lookup column to the external system
+- B. Create an alternate key on the employee ID column
+- C. Use a calculated column to convert the employee ID to a GUID
+- D. Create a virtual table
+
+**Correct Answer**: B. Create an alternate key on the employee ID column
+
+**Explanation**: Alternate keys allow you to define a column (or combination of columns) as a unique identifier that can be used instead of the GUID primary key. This is perfect for integration scenarios where external systems have their own identifiers. The alternate key must be unique across all records in the table.
+
+---
+
+### Question 24: Connection References vs Environment Variables
+
+**Scenario**: You are creating a solution that includes a Power Automate flow connecting to SharePoint and an app that calls an external API. The SharePoint site URL and API endpoint differ between test and production environments.
+
+**Question**: What should you use to handle these differences? (Select two)
+
+**Options**:
+- A. Connection reference for SharePoint
+- B. Environment variable for SharePoint site URL
+- C. Environment variable for API endpoint
+- D. Connection reference for API endpoint
+
+**Correct Answers**: A and C
+
+**Explanation**:
+- **Connection References**: Used for connector connections (SharePoint, SQL, Dataverse, etc.)
+- **Environment Variables**: Used for configuration values like URLs, IDs, and other parameters
+- SharePoint connection should use a Connection Reference
+- API endpoint URL should use an Environment Variable
+- This allows the solution to work across environments with different configurations
+
+---
+
+### Question 25: Power Virtual Agents - Topics vs Entities
+
+**Scenario**: You are building a chatbot that helps customers book sports facilities. When a user mentions "tennis court", "tennis", or "racquet sport", the bot should start a conversation about tennis booking.
+
+**Question**: What should you configure?
+
+**Options**:
+- A. Create a Topic with trigger phrases including "tennis court", "tennis", and "racquet sport"
+- B. Create an Entity with values for different sports
+- C. Create a Topic and use an Entity to extract sport types
+- D. Use AI Builder to recognize sports mentions
+
+**Correct Answer**: A. Create a Topic with trigger phrases
+
+**Explanation**:
+- **Topics** define conversation flows and are triggered by phrases users type
+- **Entities** extract and identify specific information types from user responses
+- For triggering a conversation based on keywords, use a Topic with multiple trigger phrases
+- Entities would be used if you need to extract which sport from a user's message within a conversation
+
+---
+
+### Question 26: AI Builder Model Training Data
+
+**Scenario**: Your company trained an AI Builder prediction model using test data. The model shows 2% variance in testing, but when deployed, actual variance is 15%. The executive sponsors reject the model.
+
+**Question**: What should you do to improve the model?
+
+**Options**:
+- A. Increase the number of test iterations
+- B. Replace the training data with real-world data
+- C. Adjust the model confidence threshold
+- D. Add more fields to the model
+
+**Correct Answer**: B. Replace the training data with real-world data
+
+**Explanation**: The model performs well on test data but poorly on real data, indicating the training data doesn't represent actual scenarios. AI Builder models need to be trained on representative, real-world data to perform accurately in production. Test data often lacks the variability and edge cases present in actual use.
+
+---
+
+### Question 27: Hierarchy Security Configuration
+
+**Scenario**: You need to configure security where managers can view their team members' records, the CEO can view all records, and support representatives can view customer information across all managers.
+
+**Question**: What should you configure? (Select all that apply)
+
+**Options**:
+- A. Enable Manager Hierarchy
+- B. Set hierarchy depth to 3 or more
+- C. Enable Position Hierarchy
+- D. Create a security role with Organization-level read privilege for support representatives
+
+**Correct Answers**: A, B, and D
+
+**Explanation**:
+- **Manager Hierarchy** allows managers to see their reports' data
+- **Hierarchy depth** must accommodate the organizational levels (CEO → VP → Manager)
+- **Support representatives** need Organization-level read to see across all managers
+- Position Hierarchy and Manager Hierarchy cannot be enabled simultaneously (debated, but generally only one active)
+
+---
+
+### Question 28: Column Types - Lookup vs Customer
+
+**Scenario**: You are creating a column on the Case table that should reference either an Account or a Contact.
+
+**Question**: Which column type should you use?
+
+**Options**:
+- A. Lookup
+- B. Customer
+- C. Choice
+- D. Two separate Lookup columns
+
+**Correct Answer**: B. Customer
+
+**Explanation**: The Customer column type is specifically designed to reference either Accounts or Contacts (the two customer entity types). A standard Lookup can only reference one entity type. While you could create two separate lookups, the Customer type is the proper solution for this common CRM scenario.
+
+---
+
+### Question 29: Choices (Multi-Select) Limitations
+
+**Scenario**: You need to create a business rule that sets a field as required when a multi-select choices field has specific values selected.
+
+**Question**: Is this possible with business rules?
+
+**Options**:
+- A. Yes, business rules support all column types
+- B. No, business rules don't support Choices (multi-select) columns
+- C. Yes, but only in model-driven apps
+- D. Yes, but requires JavaScript
+
+**Correct Answer**: B. No, business rules don't support Choices (multi-select) columns
+
+**Explanation**: Business rules work with most column types including text, number, choice (single-select), date, lookup, owner, and image. However, business rules DON'T work with:
+- Choices (multi-select)
+- File columns
+- Language columns
+For these scenarios, you need JavaScript or Power Automate.
+
+---
+
+### Question 30: Formula Column vs Calculated Column
+
+**Scenario**: You need to create a column that concatenates First Name and Last Name, but some records have blank first or last names. The formula needs complex conditional logic.
+
+**Question**: Which column type should you use?
+
+**Options**:
+- A. Calculated column with IF(ISBLANK()) functions
+- B. Formula column using Power Fx
+- C. Rollup column
+- D. Text column with default value
+
+**Correct Answer**: B. Formula column using Power Fx
+
+**Explanation**:
+- **Formula columns** use Power Fx and support complex logic, making them more powerful and flexible
+- **Calculated columns** use limited functions and are being phased out by Microsoft
+- Formula columns are the modern replacement for calculated columns
+- Power Fx in formula columns can handle complex conditional logic more elegantly than calculated column functions
+
+---
+
+### Question 31: Quick Create Forms
+
+**Scenario**: You want to enable users to quickly create Account records from the navigation bar with minimal fields. The form should support business rules.
+
+**Question**: Which form type should you configure?
+
+**Options**:
+- A. Main form
+- B. Quick Create form
+- C. Quick View form
+- D. Card form
+
+**Correct Answer**: B. Quick Create form
+
+**Explanation**:
+- **Quick Create forms** provide streamlined data entry and appear when users click "Create" in the navigation bar or "+ New"
+- They support business rules and form scripts (unlike Quick View forms)
+- Always have one section with three columns
+- Designed for fast data entry with essential fields only
+- **Quick View forms** are read-only and display related record information
+
+---
+
+### Question 32: Dashboard Component Limits
+
+**Scenario**: You are creating a dashboard for a model-driven app that needs to display multiple charts and lists.
+
+**Question**: What is the maximum number of components you can add to a dashboard?
+
+**Options**:
+- A. 4
+- B. 6
+- C. 8
+- D. 10
+
+**Correct Answer**: B. 6
+
+**Explanation**: A dashboard in a model-driven app can contain up to six components. Components can include charts, lists (views), web resources, or iframes. This limit ensures dashboard performance remains acceptable.
+
+---
+
+### Question 33: System Charts vs Personal Charts
+
+**Scenario**: You created a chart for the Opportunity table and want all users in your organization to access it in their views.
+
+**Question**: What type of chart should you create?
+
+**Options**:
+- A. Personal chart
+- B. System chart
+- C. Dashboard chart
+- D. View chart
+
+**Correct Answer**: B. System chart
+
+**Explanation**:
+- **System charts** are organization-owned and available to anyone with read access to the data
+- **Personal charts** are user-owned and only visible to the creator (unless shared)
+- System charts can't be assigned or shared with specific users - they're either available to all or none
+- System charts appear in the Charts area of table views for all users
+
+---
+
+### Question 34: Patch vs SubmitForm
+
+**Scenario**: You have a canvas app with a form that needs to update multiple related tables and perform custom validation before saving.
+
+**Question**: Which approach is most appropriate?
+
+**Options**:
+- A. Use SubmitForm() function
+- B. Use Patch() function with custom logic
+- C. Use Update() function
+- D. Use SubmitForm() with OnSuccess trigger
+
+**Correct Answer**: B. Use Patch() function with custom logic
+
+**Explanation**:
+- **SubmitForm()**: Easiest for simple forms, automatically handles form data, includes OnSuccess/OnFailure events
+- **Patch()**: More flexible, allows custom logic before submitting, can update multiple tables, can submit partial records, gives full control over data transformation
+- When you need to update multiple tables or implement complex validation, Patch() is the better choice
+- Patch() is preferred by experienced developers for its flexibility
+
+---
+
+### Question 35: Model-Driven App Sitemap Structure
+
+**Scenario**: You are configuring navigation for a model-driven app. You need to organize tables into logical groupings within different functional areas.
+
+**Question**: What is the correct hierarchy for sitemap components?
+
+**Options**:
+- A. Area → Subarea → Group
+- B. Area → Group → Subarea
+- C. Group → Area → Subarea
+- D. Subarea → Group → Area
+
+**Correct Answer**: B. Area → Group → Subarea
+
+**Explanation**: The sitemap hierarchy is:
+- **Area**: Top-level sections (e.g., Sales, Service, Marketing) - users toggle between areas
+- **Group**: Logical groupings within an area
+- **Subarea**: Individual items (tables, dashboards, web resources) within a group
+This structure allows for organized, intuitive navigation in model-driven apps.
+
+---
+
+### Question 36: Editable Grid Limitations
+
+**Scenario**: You need to implement an editable grid for the Account entity with several requirements. Which features are supported?
+
+**Question**: Which of the following are supported in editable grids? (Select all that apply)
+
+**Options**:
+- A. Grouping and sorting columns
+- B. Editing calculated fields
+- C. Configuring business rules
+- D. Editing rollup fields
+- E. Mobile phone support
+
+**Correct Answers**: A and C
+
+**Explanation**:
+- **Supported**: Grouping/sorting (including calculated and rollup columns), business rules, filtering
+- **Not Supported**: Editing calculated fields (they're read-only), editing rollup fields (read-only), full mobile support
+- Editable grids work on tablets but have limitations on phones
+- Calculated and rollup fields can be displayed and sorted, but not edited
+
+---
+
+### Question 37: Dataverse Relationship Cascade Rules
+
+**Scenario**: When reassigning a customer record to a different salesperson, all related orders should also be reassigned to maintain data consistency.
+
+**Question**: Which cascade rule configuration should you use for the customer-to-order relationship?
+
+**Options**:
+- A. Cascade All
+- B. Cascade Active
+- C. Cascade User-Owned
+- D. Cascade None
+
+**Correct Answer**: A. Cascade All
+
+**Explanation**:
+- **Cascade All**: Cascades the operation to all related records (active and inactive)
+- **Cascade Active**: Only cascades to active related records
+- **Cascade User-Owned**: Only cascades to user-owned related records
+- **Cascade None**: Doesn't cascade the operation
+For reassignment scenarios where you want all related records (orders) to move with the parent, use Cascade All.
+
+---
+
+### Question 38: Power Automate Trigger - Dataverse
+
+**Scenario**: You need a cloud flow that triggers when a Contact record is created, updated, OR deleted in Dataverse.
+
+**Question**: Which single trigger supports all three operations?
+
+**Options**:
+- A. When a record is created
+- B. When a record is created or updated
+- C. When a row is added, modified or deleted
+- D. When a record is created (V2)
+
+**Correct Answer**: C. When a row is added, modified or deleted
+
+**Explanation**: The "When a row is added, modified or deleted" trigger in the Microsoft Dataverse connector is the only single trigger that supports all three operations (create, update, delete). Other triggers only support create or create+update, but not delete. This trigger is ideal for comprehensive auditing or synchronization scenarios.
+
+---
+
+### Question 39: Business Process Flow Branching
+
+**Scenario**: You have a business process flow for Opportunity records. When the Opportunity type is "Existing Customer", it should skip the qualification stage. When the type is "New Customer", all stages should be required.
+
+**Question**: How should you implement this?
+
+**Options**:
+- A. Create two separate business process flows
+- B. Use conditional branching within one business process flow
+- C. Use business rules to hide stages
+- D. Use JavaScript to skip stages
+
+**Correct Answer**: B. Use conditional branching within one business process flow
+
+**Explanation**: Business process flows support conditional branching based on field values. You can create branches that route the process to different stages based on conditions. This is more maintainable than multiple BPFs and is the intended design pattern for this scenario. Business rules cannot show/hide BPF stages.
+
+---
+
+### Question 40: Power Pages Table Permissions
+
+**Scenario**: You need to allow authenticated external users to view all accounts but only create and edit account records where they are marked as the Primary Contact.
+
+**Question**: How should you configure table permissions?
+
+**Options**:
+- A. Global access with Create, Read, Write privileges
+- B. Contact access with Create, Read, Write privileges
+- C. Account access with Read privilege (Global) and Contact access with Create, Write privileges
+- D. Create two table permissions: one for Read (Global) and one for Write (Contact scope)
+
+**Correct Answer**: D. Create two table permissions: one for Read (Global) and one for Write (Contact scope)
+
+**Explanation**: Power Pages table permissions can be combined. Create:
+1. **Table Permission 1**: Account table, Read privilege, Global access (allows viewing all accounts)
+2. **Table Permission 2**: Account table, Create and Write privileges, Contact scope (allows editing only accounts where user is the Primary Contact)
+Both permissions are assigned to the same web role, allowing the combined behavior.
+
+---
+
+### Question 41: Dataverse for Teams vs Dataverse
+
+**Scenario**: Your team is using Microsoft Teams and wants to build a simple app to track team tasks. The app will only be used within your team.
+
+**Question**: Which platform should you use?
+
+**Options**:
+- A. Dataverse for Teams
+- B. Full Dataverse environment
+- C. SharePoint lists
+- D. Excel in OneDrive
+
+**Correct Answer**: A. Dataverse for Teams
+
+**Explanation**:
+- **Dataverse for Teams**: Included with Teams license, designed for team-specific apps, limited capacity, easy to set up
+- **Full Dataverse**: Requires Power Apps license, enterprise-scale features, larger capacity, more control
+- For team-specific, smaller-scale apps within Teams, Dataverse for Teams is the appropriate choice
+- You can upgrade to full Dataverse later if needs grow
+
+---
+
+### Question 42: Canvas App Delegation
+
+**Scenario**: You have a canvas app with a gallery showing 5,000+ records from a Dataverse table. Users report that not all records appear in the gallery.
+
+**Question**: What is the most likely cause and solution?
+
+**Options**:
+- A. Gallery item limit - increase the limit in gallery properties
+- B. Delegation limit - modify the filter formula to be delegable
+- C. Connection timeout - increase timeout settings
+- D. Data source limit - split into multiple tables
+
+**Correct Answer**: B. Delegation limit - modify the filter formula to be delegable
+
+**Explanation**: Canvas apps have a delegation limit (default 500, max 2,000) for non-delegable operations. When a formula can't be delegated to the data source, only the first 500-2,000 records are retrieved and processed client-side. Solutions:
+- Use delegable functions (=, >, <, >=, <=, And, Or, StartsWith for Dataverse)
+- Avoid non-delegable functions in filters (Search, Filter with complex expressions)
+- A delegation warning (yellow triangle) indicates this issue
+
+---
+
+### Question 43: Solution Publisher Prefix
+
+**Scenario**: You are creating a new solution for your organization. Why is the publisher prefix important?
+
+**Question**: What is the purpose of the solution publisher prefix?
+
+**Options**:
+- A. It identifies who created the solution for licensing purposes
+- B. It prevents naming conflicts by adding a unique prefix to schema names
+- C. It's required for ALM but has no functional purpose
+- D. It determines the solution security level
+
+**Correct Answer**: B. It prevents naming conflicts by adding a unique prefix to schema names
+
+**Explanation**: The publisher prefix (e.g., "contoso_") is added to the schema names of all custom components (tables, fields, etc.) created in that solution. This prevents conflicts when importing solutions from different publishers. For example: "contoso_customtable" vs "fabrikam_customtable". Default prefix is "new_" but should be customized for your organization.
+
+---
+
+### Question 44: Power Automate Child Flows
+
+**Scenario**: You have complex approval logic used in multiple flows. You want to avoid duplicating this logic in each flow.
+
+**Question**: What should you implement?
+
+**Options**:
+- A. Copy and paste the logic into each flow
+- B. Create a child flow and call it from parent flows
+- C. Create a business process flow
+- D. Use a solution to share the flow logic
+
+**Correct Answer**: B. Create a child flow and call it from parent flows
+
+**Explanation**: Child flows (also called "Run a child flow" action) allow you to:
+- Create reusable flow logic
+- Call the child flow from multiple parent flows
+- Pass input parameters to the child flow
+- Receive output parameters from the child flow
+- Maintain the logic in one place
+This is the proper way to create reusable flow components and follows DRY (Don't Repeat Yourself) principles.
+
+---
+
+### Question 45: Model-Driven App Form Types
+
+**Scenario**: You need to display read-only information from a related Account record on a Contact form.
+
+**Question**: Which form type should you use?
+
+**Options**:
+- A. Main form
+- B. Quick Create form
+- C. Quick View form
+- D. Card form
+
+**Correct Answer**: C. Quick View form
+
+**Explanation**:
+- **Quick View forms**: Read-only forms that display related record data on another form
+- They don't support editing, only display
+- Added to main forms to show information from related records
+- Common use: Show account details on a contact form
+- **Main forms**: Editable, primary form for records
+- **Quick Create forms**: Fast data entry forms
+
+---
+
 ## Additional Practice Resources
 
 ### Official Microsoft Resources
