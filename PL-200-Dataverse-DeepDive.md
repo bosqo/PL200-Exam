@@ -1376,6 +1376,485 @@ Publisher: Contoso
 
 ---
 
+## Environment Management and Power Platform Admin Center
+
+### Understanding Environments
+
+**Environments** are containers that provide:
+- Isolation between development, test, and production
+- Security boundaries (separate users and permissions)
+- Data storage (each environment has its own Dataverse database)
+- Regional deployment options
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    ENVIRONMENT ANATOMY                       │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│  Environment: Sales Production                              │
+│  ┌──────────────────────────────────────────────────────┐  │
+│  │  • Region: United States                             │  │
+│  │  • Type: Production                                   │  │
+│  │  • Dataverse Database: Yes                           │  │
+│  │  • Security Groups: Sales Team                       │  │
+│  │                                                       │  │
+│  │  Resources:                                           │  │
+│  │    ├─ Canvas Apps                                    │  │
+│  │    ├─ Model-Driven Apps                              │  │
+│  │    ├─ Flows                                          │  │
+│  │    ├─ Dataverse Tables                               │  │
+│  │    ├─ Solutions                                      │  │
+│  │    ├─ Connections                                    │  │
+│  │    └─ Data Policies (DLP)                            │  │
+│  └──────────────────────────────────────────────────────┘  │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Environment Types
+
+| Type | Purpose | Dataverse | Production Use |
+|------|---------|-----------|----------------|
+| **Production** | Live applications | Optional | Yes |
+| **Sandbox** | Testing and staging | Optional | No |
+| **Trial** | 30-day evaluation | Yes | No |
+| **Developer** | Individual development | Yes | No |
+| **Default** | Auto-created for tenant | Optional | Limited |
+| **Teams** | Microsoft Teams integration | Yes | Limited |
+
+#### Production Environments
+
+- **Purpose**: Live applications with real users
+- **Backup**: Automatic daily backups (retained 28 days)
+- **Support**: Full Microsoft support
+- **DLP Policies**: Can apply restrictive policies
+- **Licensing**: Requires proper licensing
+
+#### Sandbox Environments
+
+- **Purpose**: Testing, UAT, staging
+- **Backup**: Manual backups only (unless upgraded)
+- **Copy**: Can copy from Production
+- **Reset**: Can be reset to fresh state
+- **Licensing**: Included with licenses, limits apply
+
+#### Developer Environments
+
+- **Purpose**: Individual developer use
+- **Dataverse**: Always included
+- **Limit**: One per user (free)
+- **Subscription**: Requires Power Apps Developer Plan or license
+- **Expiration**: Non-commercial use only
+
+### Power Platform Admin Center
+
+The **Power Platform Admin Center** (https://admin.powerplatform.microsoft.com) is the central hub for:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│          POWER PLATFORM ADMIN CENTER OVERVIEW                │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│  Environments                                               │
+│    ├─ Create/delete environments                           │
+│    ├─ Manage environment settings                          │
+│    ├─ Backup and restore                                   │
+│    ├─ Copy environments                                    │
+│    └─ View environment details                             │
+│                                                              │
+│  Data Policies (DLP)                                        │
+│    ├─ Create data loss prevention policies                 │
+│    ├─ Block/allow connectors                               │
+│    ├─ Apply to environments                                │
+│    └─ Connector classification                             │
+│                                                              │
+│  Resources                                                  │
+│    ├─ Capacity (Database, File, Log)                       │
+│    ├─ Power Apps                                           │
+│    ├─ Power Automate                                       │
+│    └─ Power Pages                                          │
+│                                                              │
+│  Analytics                                                  │
+│    ├─ Usage reports                                        │
+│    ├─ Inventory                                            │
+│    └─ Capacity trends                                      │
+│                                                              │
+│  Help + Support                                             │
+│    └─ Create support tickets                               │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Creating Environments
+
+**Requirements:**
+- Global Admin, Power Platform Admin, or Dynamics 365 Admin role
+- Available environment quota
+- Proper licensing
+
+**Steps:**
+1. Navigate to Power Platform Admin Center
+2. **Environments** → **New**
+3. Configure:
+   - **Name**: Environment name (user-facing)
+   - **Region**: Geographic location (cannot be changed later)
+   - **Type**: Production, Sandbox, Trial, Developer
+   - **Purpose**: Description
+   - **Create database**: Yes/No (if yes, configure):
+     - **Language**: Default language
+     - **Currency**: Base currency (cannot be changed)
+     - **Security group**: Restrict access (optional)
+
+> **Exam Tip**: Region and Currency **cannot be changed** after environment creation. Choose carefully!
+
+### Environment Settings
+
+Each environment has detailed settings:
+
+#### General
+
+- **Display name**: Rename environment
+- **URL**: Environment URL (e.g., orgname.crm.dynamics.com)
+- **Environment type**: View type (cannot change)
+- **Security group**: Limit who can access
+- **State**: Enable/disable environment
+
+#### Users + Permissions
+
+- **Users**: View/manage users
+- **Security roles**: Assign roles
+- **Teams**: Manage teams
+- **Business units**: Configure BU hierarchy
+- **Column security profiles**: Field-level security
+
+#### Resources
+
+- **Dataverse**: Manage database settings
+- **Dynamics 365 apps**: Install D365 apps
+- **All legacy settings**: Classic settings
+
+#### Audit and Logs
+
+- **Audit settings**: Enable/configure auditing
+- **Audit summary view**: View audit logs
+- **Plugin trace log**: Enable plugin debugging
+
+#### Data Management
+
+- **Duplicate detection**: Configure rules
+- **Bulk delete**: Schedule bulk operations
+- **Sample data**: Add/remove sample data
+
+#### Integrations
+
+- **Email settings**: Configure email
+- **SharePoint sites**: Connect SharePoint
+- **Yammer**: Social integration (deprecated)
+- **Activity feeds**: Configure activities
+
+### Backup and Restore
+
+#### Automatic Backups (Production Only)
+
+```
+System Backups:
+  • Frequency: Daily (automatic)
+  • Retention: 28 days
+  • Type: Full backup
+  • Restore: Self-service or support ticket
+```
+
+**Restore Process:**
+1. **Environments** → Select environment
+2. **Backups** → **System** tab
+3. Select backup
+4. **Restore** or **Restore to different environment**
+5. Confirm (overwrites target)
+
+#### Manual Backups
+
+```
+Manual Backups:
+  • Frequency: On-demand
+  • Retention: Up to 3 backups (unless storage purchased)
+  • Type: Full backup
+  • Available for: Production and Sandbox
+```
+
+**Creating Manual Backup:**
+1. **Environments** → Select environment
+2. **Backups** → **Create** (Manual tab)
+3. Enter label
+4. Create
+
+> **Exam Tip**: **Production** environments get automatic daily backups for 28 days. **Sandbox** environments require manual backups. This is frequently tested.
+
+### Copy Environment
+
+Copy entire environment (structure + data):
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    COPY ENVIRONMENT                          │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│  Source: Production                                         │
+│  ┌──────────────────────────────────────────────────────┐  │
+│  │  • All tables and data                               │  │
+│  │  • All customizations                                │  │
+│  │  • All solutions                                     │  │
+│  │  • Security roles (structure)                        │  │
+│  └──────────────────────────────────────────────────────┘  │
+│                         ↓ COPY                              │
+│  Target: Sandbox                                            │
+│  ┌──────────────────────────────────────────────────────┐  │
+│  │  • Everything copied                                 │  │
+│  │  • Connections recreated (need reconfiguration)      │  │
+│  │  • Flows disabled (must enable manually)             │  │
+│  │  • Users NOT copied (must add separately)            │  │
+│  └──────────────────────────────────────────────────────┘  │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Copy Options:**
+
+| Option | Includes |
+|--------|----------|
+| **Everything** | All data + customizations |
+| **Customizations and schemas only** | No data, only structure |
+
+**Copy Process:**
+1. **Environments** → Select source
+2. **Copy**
+3. Select target (new or existing sandbox)
+4. Choose copy type
+5. Confirm (overwrites target if existing)
+
+**After Copy:**
+- Flows are **disabled** (must enable manually)
+- Connections must be **reconfigured**
+- Users must be **added** to environment
+- Test thoroughly before using
+
+> **Exam Tip**: After copying, flows are disabled and connections need reconfiguration. This is a safety measure and commonly tested.
+
+### Reset Environment
+
+**Reset** = Delete all data and customizations, start fresh:
+
+- Only available for **Sandbox** environments
+- Cannot reset Production
+- Retains environment URL and name
+- All data permanently deleted
+- Customizations removed
+
+**Use Cases:**
+- Start over after testing
+- Reclaim storage space
+- Prepare environment for new project
+
+### Delete Environment
+
+Permanently remove environment:
+
+- Cannot be undone (unless recent backup)
+- Releases capacity back to pool
+- Users lose access immediately
+- 7-day recovery period (soft delete)
+
+**Recovery:**
+Within 7 days, can recover deleted environment:
+1. **Environments** → **Recover deleted environments**
+2. Select environment
+3. **Recover**
+
+### Environment Capacity
+
+Each tenant has capacity limits:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    CAPACITY TYPES                            │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│  Database Capacity                                          │
+│    • Dataverse table data                                  │
+│    • Base capacity: 10 GB (tenant)                         │
+│    • Additional: Per user/app licenses                      │
+│    • Purchase: Add-on capacity available                    │
+│                                                              │
+│  File Capacity                                              │
+│    • Attachments, images, files                            │
+│    • Base capacity: 20 GB (tenant)                         │
+│    • Additional: Per user/app licenses                      │
+│    • Purchase: Add-on capacity available                    │
+│                                                              │
+│  Log Capacity                                               │
+│    • Audit logs, plugin traces                             │
+│    • Base capacity: 2 GB (tenant)                          │
+│    • Additional: Per user/app licenses                      │
+│    • Purchase: Add-on capacity available                    │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Viewing Capacity:**
+1. **Resources** → **Capacity**
+2. View summary or detailed reports
+3. Drill into environment usage
+
+**Managing Capacity:**
+- Delete unused environments
+- Remove old data
+- Reduce audit log retention
+- Purchase additional capacity
+
+### Data Policies (DLP)
+
+**Data Loss Prevention Policies** control connector usage:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│               DATA LOSS PREVENTION POLICY                    │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│  Policy: Sales Production DLP                               │
+│                                                              │
+│  Business Data Group (Allowed Together)                     │
+│  ┌──────────────────────────────────────────────────────┐  │
+│  │  • Dataverse                                         │  │
+│  │  • SharePoint                                        │  │
+│  │  • Office 365 Outlook                                │  │
+│  │  • Office 365 Users                                  │  │
+│  │  • SQL Server                                        │  │
+│  └──────────────────────────────────────────────────────┘  │
+│                                                              │
+│  Non-Business Data Group (Separate)                        │
+│  ┌──────────────────────────────────────────────────────┐  │
+│  │  • Twitter                                           │  │
+│  │  • Facebook                                          │  │
+│  │  • Gmail                                             │  │
+│  └──────────────────────────────────────────────────────┘  │
+│                                                              │
+│  Blocked Group (Cannot Use)                                │
+│  ┌──────────────────────────────────────────────────────┐  │
+│  │  • Dropbox                                           │  │
+│  │  • Google Drive                                      │  │
+│  └──────────────────────────────────────────────────────┘  │
+│                                                              │
+│  Applied to: Sales Production Environment                   │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Rules:**
+- Apps/flows can use connectors from **same group** together
+- Apps/flows **cannot** use connectors from **different groups**
+- **Blocked** connectors cannot be used at all
+
+**Creating DLP Policy:**
+1. **Data policies** → **New policy**
+2. Name and assign environments
+3. Classify connectors:
+   - **Business** data group
+   - **Non-Business** data group
+   - **Blocked**
+4. Configure connector patterns (optional)
+5. Save and apply
+
+> **Exam Tip**: DLP policies prevent data mixing between business and non-business connectors. If Canvas App can't use Twitter + Dataverse together, there's a DLP policy. Commonly tested scenario.
+
+### Analytics
+
+Track environment usage:
+
+**Available Reports:**
+- **Power Apps**: Usage by app, user, location
+- **Power Automate**: Flow runs, success rates
+- **Dataverse**: Storage usage, API calls
+- **Connectors**: Connector usage
+- **Error logs**: Failed operations
+
+**Accessing Analytics:**
+1. **Analytics** section
+2. Select report type
+3. Filter by environment, date range
+4. Export data if needed
+
+### Admin Roles
+
+Three primary admin roles:
+
+| Role | Permissions |
+|------|-------------|
+| **Global Administrator** | Full control of tenant and all environments |
+| **Power Platform Administrator** | Manage environments, DLP policies, resources |
+| **Dynamics 365 Administrator** | Manage Dynamics 365 environments only |
+
+**Assigning Admin Roles:**
+- Assigned in **Microsoft 365 Admin Center**
+- Not in Power Platform Admin Center
+
+### Environment Security Groups
+
+Restrict environment access to specific Azure AD security groups:
+
+**Configuration:**
+1. Create Azure AD security group
+2. Add users to group
+3. In environment settings:
+   - **Edit** → **Security group**
+   - Select Azure AD group
+4. Save
+
+**Effect:**
+- Only members can access environment
+- Others see "You don't have permission" error
+- Overrides individual environment access
+
+**Use Cases:**
+- Production environment: Only specific team
+- Development environment: Only developers
+- Testing environment: QA team only
+
+> **Exam Tip**: Security groups are the ONLY way to restrict environment access. Individual user blocking is not possible. If question asks "prevent specific users from accessing environment", answer is Security Group.
+
+### Common Admin Tasks
+
+#### Moving Apps Between Environments
+
+1. **Export as solution** from source environment
+2. **Import solution** to target environment
+3. Reconfigure connections
+4. Test functionality
+
+#### Managing User Access
+
+1. **Users + permissions** in environment settings
+2. Add users manually or via security group
+3. Assign security roles
+4. Test access
+
+#### Monitoring Environment Health
+
+1. **Analytics** for usage trends
+2. **Capacity** for storage limits
+3. **Resources** for installed apps/flows
+4. **Audit logs** for changes
+
+#### Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| Users can't access | Check security group, verify licenses |
+| Out of capacity | Delete old data, purchase capacity |
+| Flows disabled after copy | Manually enable and reconfigure connections |
+| DLP blocking connector | Adjust policy or request exception |
+| Slow performance | Check API call limits, optimize queries |
+
+---
+
 ## Common Exam Scenarios
 
 ### Scenario 1: Table Ownership Decision
