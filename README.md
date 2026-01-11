@@ -27,32 +27,34 @@ The PL-200 exam includes multiple question formats:
 
 ### Exam Coverage Areas
 
-Based on the official Microsoft study guide, the exam covers:
+Based on the official Microsoft study guide (updated January 2024), the exam covers:
 
 1. **Configure Microsoft Dataverse (25-30%)**
    - Manage environments
    - Configure security settings
    - Create and manage tables and columns
    - Create and manage relationships
+   - Implement business logic
 
-2. **Create Apps Using Power Apps (20-25%)**
+2. **Create Apps Using Power Apps (25-30%)**
    - Create model-driven apps
    - Create canvas apps
    - Configure forms, views, and charts
+   - Implement Power Pages
 
-3. **Create and Manage Power Automate (15-20%)**
+3. **Create and Manage Logic and Process Automation (25-30%)**
    - Create cloud flows
    - Create business process flows
    - Implement triggers and actions
+   - Configure process automation
 
-4. **Implement Power Virtual Agents Chatbots (10-15%)**
-   - Create and configure chatbots
-   - Manage topics and entities
+4. **Manage Environments (15-20%)**
+   - Configure environment settings
+   - Manage data policies
+   - Implement environment strategies
+   - Monitor and troubleshoot
 
-5. **Integrate Power Apps with Other Apps and Services (15-20%)**
-   - Configure integrations
-   - Manage Power BI integration
-   - Implement Microsoft Power Pages
+**Note**: Power Virtual Agents (now Microsoft Copilot Studio) was removed from the PL-200 exam in January 2024 and will have its own dedicated certification track.
 
 ---
 
@@ -530,29 +532,7 @@ Since the requirement is for one specific form, Specific Form is the correct ans
 
 ---
 
-### Question 25: Power Virtual Agents - Topics vs Entities
-
-**Scenario**: You are building a chatbot that helps customers book sports facilities. When a user mentions "tennis court", "tennis", or "racquet sport", the bot should start a conversation about tennis booking.
-
-**Question**: What should you configure?
-
-**Options**:
-- A. Create a Topic with trigger phrases including "tennis court", "tennis", and "racquet sport"
-- B. Create an Entity with values for different sports
-- C. Create a Topic and use an Entity to extract sport types
-- D. Use AI Builder to recognize sports mentions
-
-**Correct Answer**: A. Create a Topic with trigger phrases
-
-**Explanation**:
-- **Topics** define conversation flows and are triggered by phrases users type
-- **Entities** extract and identify specific information types from user responses
-- For triggering a conversation based on keywords, use a Topic with multiple trigger phrases
-- Entities would be used if you need to extract which sport from a user's message within a conversation
-
----
-
-### Question 26: AI Builder Model Training Data
+### Question 25: AI Builder Model Training Data
 
 **Scenario**: Your company trained an AI Builder prediction model using test data. The model shows 2% variance in testing, but when deployed, actual variance is 15%. The executive sponsors reject the model.
 
@@ -1097,34 +1077,7 @@ Field level security requires:
 
 ---
 
-### Question 51: Power Virtual Agents - System Fallback Topic
-
-**Scenario**: You created a Power Virtual Agents chatbot, but users complain that when they ask questions the bot doesn't understand, it doesn't provide helpful responses.
-
-**Question**: What should you configure to improve the user experience?
-
-**Options**:
-- A. Add more trigger phrases to existing topics
-- B. Configure the System Fallback topic
-- C. Create a new topic for each possible question
-- D. Increase the AI confidence threshold
-
-**Correct Answer**: B. Configure the System Fallback topic
-
-**Explanation**:
-- **System Fallback topic**: Triggers when the bot doesn't recognize user input
-- You should customize this topic to:
-  - Provide helpful alternative suggestions
-  - Transfer to a human agent
-  - Offer a menu of available topics
-  - Collect feedback
-- The default fallback message is often not helpful
-- This is different from adding trigger phrases (which helps recognition)
-- System topics like Fallback are built-in but can be customized
-
----
-
-### Question 52: Component Libraries
+### Question 51: Component Libraries
 
 **Scenario**: You've created several reusable components (custom header, navigation menu, data card) that should be used across multiple canvas apps in your organization.
 
@@ -1311,34 +1264,7 @@ Field level security requires:
 
 ---
 
-### Question 59: Power Virtual Agents - Entities for Age Groups
-
-**Scenario**: Your Power Virtual Agents chatbot needs to capture user age and categorize it into groups (Child: 0-12, Teen: 13-17, Adult: 18+) for routing conversations.
-
-**Question**: What should you configure?
-
-**Options**:
-- A. Create a Number entity and use conditions in the topic
-- B. Create a custom entity with age group values
-- C. Use the prebuilt Age entity
-- D. Use variables with if-then branches
-
-**Correct Answer**: A. Create a Number entity and use conditions in the topic
-
-**Explanation**:
-- **Best approach**: Capture age as a number, then use conditions (if-then branches) to categorize
-- **Entities**: Extract specific information types (dates, numbers, names) from user input
-- For age groups, you want:
-  1. Entity to capture the numeric age
-  2. Conditional logic to categorize into groups
-  3. Branch conversation based on category
-- Custom entities are for specific values/categories (colors, product types), not numeric ranges
-- There's no prebuilt "Age" entity; use Number entity
-- Conditions allow complex logic for ranges
-
----
-
-### Question 60: N:1 Relationship Direction
+### Question 58: N:1 Relationship Direction
 
 **Scenario**: You need to configure a relationship where multiple Contacts can be associated with one Account.
 

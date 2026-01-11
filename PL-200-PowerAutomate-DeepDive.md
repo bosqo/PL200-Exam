@@ -2047,4 +2047,4 @@ Start and wait for an approval
 
 ---
 
-*Continue to the next section: [Power Virtual Agents Deep Dive](./PL-200-PowerVirtualAgents-DeepDive.md)*
+**Note**: Microsoft Copilot Studio (formerly Power Virtual Agents) was removed from the PL-200 exam in January 2024. For integration scenarios, see [Integration Scenarios Deep Dive](./PL-200-Integration-DeepDive.md).

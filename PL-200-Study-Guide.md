@@ -474,29 +474,9 @@ Control what can be customized in managed solutions:
 
 ## Special Topics & Exam Tips
 
-### Power Virtual Agents / Copilot Studio
+### Microsoft Copilot Studio (Formerly Power Virtual Agents)
 
-#### Key Concepts for Exam
-
-| Concept | Description |
-|---------|-------------|
-| **Topics** | Conversation paths triggered by phrases |
-| **Entities** | Data extracted from user input |
-| **Skills** | Integration with Bot Framework bots |
-| **Fallback Topic** | Handles unrecognized input |
-
-#### Sharing and Publishing
-
-| Action | Method |
-|--------|--------|
-| **Share for testing** | Demo website |
-| **Collaborate on building** | Share with individuals (not groups) |
-| **Publish to users** | Channels (Teams, website, etc.) |
-
-> **Exam Tip**:
-> - SSO is supported on **Microsoft Teams** and **custom websites**
-> - To transfer to another bot → Use **Skills**
-> - For unrecognized input → Configure **Fallback topic** or escalate to agent
+**Note**: Microsoft Copilot Studio (formerly Power Virtual Agents) was **removed from the PL-200 exam in January 2024**. It is no longer tested on this certification. Copilot Studio will have its own dedicated certification track.
 
 ### AI Builder
 - Document processing

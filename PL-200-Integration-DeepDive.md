@@ -798,18 +798,7 @@ Post adaptive card in channel:
   }
 ```
 
-#### Power Virtual Agents in Teams
-
-**Add bot to Teams:**
-1. Publish bot
-2. **Channels** → **Microsoft Teams**
-3. **Open bot** in Teams
-4. Share with users
-
-**Teams-specific features:**
-- SSO (automatic authentication)
-- Adaptive cards in conversations
-- Access Teams data (members, channels)
+**Note**: Microsoft Copilot Studio (formerly Power Virtual Agents) was removed from the PL-200 exam in January 2024 and is no longer tested.
 
 ### Teams Environment
 

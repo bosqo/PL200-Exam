@@ -606,43 +606,9 @@ You are implementing ALM for your organization. Which statement correctly descri
 
 ## Section 5: Mixed Topics & Scenarios
 
+**Note**: Questions about Microsoft Copilot Studio (formerly Power Virtual Agents) have been removed as this topic was excluded from the PL-200 exam in January 2024.
+
 ### Question 43
-You are creating a Power Virtual Agents bot. Some users report that the bot doesn't recognize their input.
-
-**What should you configure to handle unrecognized input?**
-
-- A) Add more trigger phrases to existing topics
-- B) Configure a Fallback topic
-- C) Create more entities
-- D) Increase the confidence threshold
-
----
-
-### Question 44
-You create a Power Virtual Agents bot that needs to transfer users to a support bot built using Bot Framework.
-
-**What should you use?**
-
-- A) Topics
-- B) Skills
-- C) Entities
-- D) Variables
-
----
-
-### Question 45
-You need to share a Power Virtual Agents bot with teammates for testing before it goes live.
-
-**How should you share it?**
-
-- A) Publish to Microsoft Teams
-- B) Use the Demo website
-- C) Share the bot with a security group
-- D) Export and send the solution file
-
----
-
-### Question 46
 You create a Power BI report and need to display it within a model-driven app.
 
 **Which two actions should you take? (Choose two)**
@@ -667,20 +633,7 @@ You need to assign 10% of incoming records to a quality review queue. The assign
 
 ---
 
-### Question 48
-You are configuring single sign-on (SSO) for a Power Virtual Agents bot.
-
-**Which channels support SSO? (Choose two)**
-
-- A) Microsoft Teams
-- B) Facebook Messenger
-- C) Custom website (pro developer)
-- D) SMS
-- E) Email
-
----
-
-### Question 49
+### Question 45
 A company has the following requirements for a Dataverse column:
 - Must automatically generate a unique identifier
 - The value cannot be edited after creation
@@ -695,7 +648,7 @@ A company has the following requirements for a Dataverse column:
 
 ---
 
-### Question 50
+### Question 46
 You need to create a lookup column that can reference either an Account OR a Contact record.
 
 **What type of column should you create?**
@@ -711,14 +664,10 @@ You need to create a lookup column that can reference either an Account OR a Con
 
 | Q | Answer | Explanation |
 |---|--------|-------------|
-| 43 | **B** | Fallback topics handle unrecognized user input and can escalate to agents or provide alternatives. |
-| 44 | **B** | Skills allow Power Virtual Agents to integrate with and transfer to Bot Framework bots. |
-| 45 | **B** | The Demo website allows sharing for testing without publishing to a live channel. |
-| 46 | **A, C** | Power BI reports can be added to site map dashboards and embedded in model-driven app dashboards. |
-| 47 | **B** | Autonumber provides sequential numbers. A flow can check if divisible by 10 (every 10th = 10%). |
-| 48 | **A, C** | SSO is supported on Microsoft Teams and custom websites built with pro developer tools. |
-| 49 | **B** | Autonumber columns auto-generate sequential, read-only, predictable identifiers. |
-| 50 | **C** | Customer type is a built-in polymorphic lookup that can reference Account or Contact. |
+| 43 | **A, C** | Power BI reports can be added to site map dashboards and embedded in model-driven app dashboards. |
+| 44 | **B** | Autonumber provides sequential numbers. A flow can check if divisible by 10 (every 10th = 10%). |
+| 45 | **B** | Autonumber columns auto-generate sequential, read-only, predictable identifiers. |
+| 46 | **C** | Customer type is a built-in polymorphic lookup that can reference Account or Contact. |
 
 ---
 
