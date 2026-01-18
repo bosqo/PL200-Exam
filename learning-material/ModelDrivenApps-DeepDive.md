@@ -775,6 +775,334 @@ SITE MAP HIERARCHY
 
 ---
 
+## Power Apps Component Framework (PCF) - Custom Controls
+
+### What is PCF?
+
+**Power Apps Component Framework (PCF)** enables **custom controls** for displaying and interacting with data:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    PCF CUSTOM CONTROL                        │
+├─────────────────────────────────────────────────────────────┤
+│  Standard Text Field                                        │
+│  ┌────────────────────────────┐                             │
+│  │ Account Name: Contoso Ltd  │                             │
+│  └────────────────────────────┘                             │
+│              ↓ REPLACE WITH                                  │
+│              ↓                                               │
+│  PCF Component: Interactive Logo Selector                  │
+│  ┌────────────────────────────┐                             │
+│  │ Select Logo:               │                             │
+│  │  🔷 Contoso                │                             │
+│  │  🔶 Fabrikam               │  ← Custom UI                │
+│  │  🔸 Adventure Works        │     Created with PCF        │
+│  └────────────────────────────┘                             │
+```
+
+### PCF Capabilities
+
+| Capability | Enabled |
+|-----------|---------|
+| **Custom rendering** | ✓ Yes (React, Canvas, HTML) |
+| **Interactive UI** | ✓ Yes (drag-drop, buttons, etc.) |
+| **Data binding** | ✓ Yes (bound to table field) |
+| **Event handling** | ✓ Yes (click, change, etc.) |
+| **Server communication** | ✓ Yes (via Web API) |
+| **Configuration** | ✓ Yes (parameters per control) |
+
+### PCF Requirements
+
+**Development Requirements:**
+- Node.js and npm
+- Visual Studio Code or Visual Studio
+- Power Platform CLI
+- TypeScript or JavaScript knowledge
+- React (or other UI framework)
+
+**Deployment Requirements:**
+- Must be in a **managed solution**
+- Solution publisher required
+- Custom development work (not configuration)
+
+> **Exam Tip**: PCF requires pro-dev work. This is NOT a configuration topic but appears in PL-200 as context for functional consultants to understand when to recommend/coordinate with developers.
+
+### Where PCF Controls Can Be Used
+
+#### 1. Model-Driven Forms (Field Controls)
+
+```
+Form: Opportunity
+├─ Main Form
+│  ├─ Account Name (Standard Lookup) - Uses PCF
+│  │  └─ Custom control: Account Selector with logos
+│  │
+│  ├─ Estimated Value (Standard Number) - Uses PCF
+│  │  └─ Custom control: Revenue Gauge Visualization
+│  │
+│  └─ Status (Standard Choice) - Uses PCF
+│     └─ Custom control: Status Pipeline Visual
+```
+
+**Limitations:**
+- Maximum ONE PCF component per field (bound property)
+- Must be bound to a table field
+- Cannot have multiple PCF controls on same field
+
+#### 2. Model-Driven Custom Pages
+
+```
+Custom Page: Dashboard
+├─ Model-Driven App
+├─ Contains multiple controls:
+│  ├─ PCF Control 1: Revenue Trend Chart
+│  ├─ PCF Control 2: Sales Pipeline
+│  └─ Standard Grid: Recent Opportunities
+```
+
+**Benefits:**
+- No limit on number of PCF controls per page
+- Can combine PCF + standard controls
+- Responsive design possible
+
+#### 3. Canvas Apps (with Feature Flag)
+
+```
+Canvas App
+├─ Requires feature flag: "PCF enabled for canvas"
+├─ Can reference Dataverse-based PCF components
+└─ Limitations: Not all PCF components support canvas
+```
+
+**Current Status:** Canvas PCF support is limited. Not all controls work in canvas apps.
+
+### PCF Typical Implementations
+
+**Example 1: Custom Lookup Control**
+```
+Standard Lookup (dropdown):
+  ├─ Shows record name only
+  ├─ Limited filtering
+
+PCF Lookup (custom):
+  ├─ Show record with image, details
+  ├─ Advanced filtering UI
+  ├─ Instant search
+  └─ Real-time validation
+```
+
+**Example 2: Data Visualization**
+```
+Standard Chart (limited options):
+  ├─ Column, pie, line, funnel, area
+
+PCF Chart (custom):
+  ├─ Gauge, bullet, heat map, tree map
+  ├─ Real-time updates
+  └─ Interactive drill-down
+```
+
+**Example 3: Data Entry Component**
+```
+Standard Text Field:
+  ├─ Plain text box
+  ├─ Simple validation
+
+PCF Editor (custom):
+  ├─ Rich text with formatting
+  ├─ Code syntax highlighting
+  ├─ Markdown support
+  └─ Live preview
+```
+
+### PCF Distribution
+
+**Model-Driven Solutions:**
+- Include PCF components in managed solution
+- Components deployed with solution
+- No separate distribution needed
+
+**Canvas Apps:**
+- Can create **PCF Component Library**
+- Shared reusable components
+- Used across multiple canvas apps
+
+### PCF and Dataverse Business Rules
+
+**Important Interaction:**
+- **Entity-scoped business rules** execute against PCF controls
+- Client-side business rules may not interact properly
+- PCF must implement `notifyOutputChanged()` for form to detect changes
+- Business rules trigger if PCF updates values
+
+---
+
+## Custom Pages in Model-Driven Apps
+
+### What are Custom Pages?
+
+**Custom Pages** = Canvas-like pages within model-driven app structure:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                 MODEL-DRIVEN APP STRUCTURE                   │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│  ┌──────────────────────────────────────────────────────┐   │
+│  │  Site Map Navigation                                 │   │
+│  │  ├─ Area: Sales                                      │   │
+│  │  │  ├─ Subarea: Accounts (standard table view)      │   │
+│  │  │  ├─ Subarea: Contacts (standard table view)      │   │
+│  │  │  └─ Subarea: Dashboard (custom page)             │   │
+│  │  │     └─ [Custom layout, controls, logic]          │   │
+│  │  │                                                    │   │
+│  │  └─ Area: Analytics (custom page)                   │   │
+│  │     └─ [Reports, charts, custom visualization]      │   │
+│  └──────────────────────────────────────────────────────┘   │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Custom Page Characteristics
+
+| Aspect | Custom Pages |
+|--------|--------------|
+| **Design Tool** | Canvas-like designer (same as Canvas Apps) |
+| **Connectors Support** | Limited (max 20) |
+| **Controls Available** | Subset of Canvas App controls |
+| **Form Controls** | NO (use Dataverse forms for data entry) |
+| **Power Fx** | Full support (same as Canvas Apps) |
+| **Responsive** | Can be designed responsive |
+| **Offline** | Limited support |
+| **Licensing** | Included with model-driven app |
+
+### Custom Page Controls Available
+
+**Supported Controls:**
+- Label, Button, Icon
+- Text Input, Dropdown, Date Picker
+- Gallery (limited)
+- Container, Group
+- HTML Text
+- Image, Video (limited)
+- Power BI (read-only)
+- Charts (reference Dataverse data)
+- PCF Controls (yes!)
+
+**NOT Supported:**
+- Form control (edit/create records)
+- Timer
+- Camera
+- Microphone
+- Barcode scanner
+
+### Creating Custom Pages
+
+**Steps:**
+1. Model-Driven App Designer
+2. Create page → **Custom page**
+3. Design page (canvas-like interface)
+4. Add controls and configure formulas
+5. Add to site map navigation
+6. Save
+
+**Example Custom Page - Dashboard:**
+```
+┌────────────────────────────────────────┐
+│      Sales Dashboard (Custom Page)     │
+├────────────────────────────────────────┤
+│                                        │
+│ ┌──────────────────┐  ┌────────────┐  │
+│ │ This Month Sales │  │  Total     │  │
+│ │   $1,200,000     │  │ Pipeline   │  │
+│ │ (KPI Indicator)  │  │$50 Million │  │
+│ └──────────────────┘  └────────────┘  │
+│                                        │
+│ ┌────────────────────────────────────┐ │
+│ │  Sales by Region (Chart)           │ │
+│ │  ████ North: $400K                 │ │
+│ │  ██████ South: $500K               │ │
+│ │  ███████ East: $300K               │ │
+│ └────────────────────────────────────┘ │
+│                                        │
+│ ┌────────────────────────────────────┐ │
+│ │ [Refresh] [Export] [Settings]      │ │
+│ └────────────────────────────────────┘ │
+└────────────────────────────────────────┘
+```
+
+### Custom Page vs Canvas App
+
+```
+┌────────────────────────────────────────────────────────────┐
+│              CUSTOM PAGE vs CANVAS APP                      │
+├────────────────────────────────────────────────────────────┤
+│                                                             │
+│  CUSTOM PAGE (Model-Driven)                                │
+│  ├─ Embedded in model-driven app                           │
+│  ├─ Integrated with app navigation                         │
+│  ├─ Limited connectors (20 max)                            │
+│  ├─ Subset of Canvas controls                              │
+│  ├─ Security: Model-driven app security model              │
+│  ├─ URL: Part of app URL                                   │
+│  └─ Use: In-app dashboards, sub-sections                   │
+│                                                             │
+│  CANVAS APP (Standalone)                                   │
+│  ├─ Separate application                                   │
+│  ├─ Separate navigation                                    │
+│  ├─ Unlimited connectors                                   │
+│  ├─ All Canvas controls available                          │
+│  ├─ Security: Canvas app sharing model                     │
+│  ├─ URL: Separate URL                                      │
+│  └─ Use: Complete custom applications                      │
+│                                                             │
+└────────────────────────────────────────────────────────────┘
+```
+
+### Custom Page Data Binding
+
+**Connecting to Dataverse:**
+
+```
+Custom Page: Active Opportunities
+├─ Gallery control
+│  ├─ Items: Opportunities table (Dataverse)
+│  ├─ Filter: Status = "Active"
+│  ├─ Sort: Created Date (descending)
+│  └─ Template: Shows Name, Amount, Owner
+│
+├─ Button: "New Opportunity"
+│  ├─ Action: Navigate to New Opportunity form
+│
+├─ Button: "Refresh"
+│  └─ Action: Reload data from Dataverse
+```
+
+### Custom Page Connector Limitations
+
+```
+Max Connections: 20 total
+├─ Each connector type counts as 1
+├─ Dataverse = 1
+├─ SharePoint = 1
+├─ SQL Server = 1
+└─ Total cannot exceed 20
+```
+
+### Custom Pages and Responsive Design
+
+Unlike canvas apps, custom pages have built-in responsive support:
+
+```
+Designer: Adaptive layout
+├─ Desktop: Full width layout
+├─ Tablet: Medium layout
+├─ Mobile: Stacked layout
+└─ Automatic scaling
+```
+
+---
+
 ## Common Exam Scenarios
 
 ### Scenario 1: Form Selection

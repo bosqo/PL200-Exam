@@ -1052,6 +1052,160 @@ Settings → Retry Policy
 
 > **Exam Tip**: Retries are automatic for transient errors. Use Scope + Configure Run After for permanent errors that need custom handling.
 
+### Advanced Error Handling Patterns
+
+#### Nested Scopes for Complex Error Management
+
+You can nest scopes within scopes for hierarchical error handling, but there are limitations:
+
+**Maximum Nesting Depth:**
+- Maximum 8 levels of nesting total (including conditions, loops, and scopes combined)
+- Each scope counts as one level
+
+```
+┌────────────────────────────────────────────────────────┐
+│           NESTED SCOPE ARCHITECTURE                     │
+├────────────────────────────────────────────────────────┤
+│  Level 1: Try Scope (Main operation)                   │
+│  ├─ Level 2: Inner Scope 1 (Optional task)             │
+│  │  └─ Level 3: Inner Scope 2 (Specific error catch)   │
+│  │                                                      │
+│  ├─ Error handling for Level 2                         │
+│  │  └─ Log error                                        │
+│  │                                                      │
+│  └─ Catch Scope (Catch-all)                            │
+│     └─ Handle any uncaught errors                      │
+└────────────────────────────────────────────────────────┘
+```
+
+**Example Use Case:**
+```
+Scope: ProcessOrder (Try)
+  ├─ Scope: ValidateInventory
+  │   ├─ Check stock
+  │   ├─ Catch: If fails, set flag
+  │
+  ├─ Scope: ChargePayment
+  │   ├─ Process payment
+  │   ├─ Catch: If fails, refund attempt
+  │
+  └─ Scope: SendConfirmation
+      ├─ Send order confirmation
+      └─ (If fails, it's non-critical)
+
+Scope: CatchErrors (has failed/timed out)
+  └─ Send admin alert, log to database
+```
+
+**Critical Limitations:**
+- Exceeding 8 levels causes the flow to fail to save
+- Conditions, loops, and parallel branches also count toward the limit
+- Plan your nesting strategy carefully
+
+#### Using Scope Result() for Dynamic Error Handling
+
+The `result()` function returns the status of a scope and enables conditional error handling:
+
+**Possible Results:**
+- `Succeeded` - All actions in scope completed successfully
+- `Failed` - One or more actions failed
+- `Skipped` - Scope was skipped (conditional block evaluated to false)
+- `TimedOut` - Scope execution exceeded timeout
+
+**Advanced Pattern - Selective Error Recovery:**
+
+```
+Scope: AttemptDataUpdate
+  ├─ Action 1: Query database
+  ├─ Action 2: Update record
+  └─ Action 3: Log update
+
+Condition: result('AttemptDataUpdate') == 'Failed'
+  ├─ Yes Branch:
+  │   └─ Condition: result('Action2') == 'Failed'
+  │       ├─ Payment failed: Retry payment
+  │       ├─ Data update failed: Notify admin
+  │       └─ Log failed: Continue (non-critical)
+  │
+  └─ No Branch:
+      └─ Success notification
+```
+
+#### Multiple Catch Scopes for Different Error Types
+
+Handle different types of errors with separate catch scopes:
+
+```
+Scope: MainProcess
+  ├─ Action: Query Dataverse (might timeout)
+  ├─ Action: Send Email (might fail - permission)
+  └─ Action: Update database (might fail - data conflict)
+
+Scope: CatchTimeoutErrors
+  Configure run after: [has timed out]
+  └─ Retry with longer timeout
+     └─ Use Terminate with "Failed" if timeout again
+
+Scope: CatchPermissionErrors
+  Configure run after: [has failed]
+  └─ Check error message contains "permission"
+     └─ If yes: Send alert to admin
+     └─ If no: Try alternate action
+
+Scope: CatchDataErrors
+  Configure run after: [has failed]
+  └─ Log detailed error with context
+     └─ Attempt rollback if applicable
+```
+
+#### Error Notification and Logging Pattern
+
+Implement comprehensive error tracking:
+
+```
+Scope: CatchAllErrors
+  Configure run after: [has failed, has timed out]
+  ├─ Set variable: errorMessage = body('Failed_action')
+  ├─ Set variable: errorTime = utcNow()
+  ├─ Compose error details:
+  │   {
+  │     "Flow": workflow().name,
+  │     "Trigger": triggerBody()['ID'],
+  │     "Error": @{body('Failed_action')?['error']},
+  │     "Timestamp": @{utcNow()},
+  │     "User": @{user()}
+  │   }
+  ├─ Send email to admin
+  ├─ Create error log record in Dataverse
+  └─ Terminate with "Failed"
+```
+
+#### Scope Execution and Performance Implications
+
+**Important Notes:**
+- Scopes execute sequentially by default (one after another)
+- To run scopes in parallel, use "Parallel branch" action
+- Parallel scopes within a Try block share the same error handling
+- Each action in a scope can have different "Configure run after" settings
+
+```
+Parallel Execution Pattern:
+┌──────────────────────────────────────────┐
+│  Scope: Parallel Branch 1 (Query data)   │ Runs
+├──────────────────────────────────────────┤ at
+│  Scope: Parallel Branch 2 (Send email)   │ same
+├──────────────────────────────────────────┤ time
+│  Scope: Parallel Branch 3 (Update DB)    │
+└──────────────────────────────────────────┘
+         ↓
+    All branches complete
+         ↓
+  Continue with next action
+```
+
+> **Exam Scenario**: "A flow must retry a failed payment, then send a confirmation email regardless of payment success, and log all activities."
+→ **Answer**: Use Try Scope with payment logic, Catch Scope for retry, Then use Scope after to send confirmation with Configure run after "all options", and finally log with another Scope.
+
 ---
 
 ## Child Flows and Flow Management
