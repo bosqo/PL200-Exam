@@ -84,12 +84,18 @@ Detailed technical guides for each Power Platform component:
 | Guide | Topic | Focus |
 |-------|-------|-------|
 | 📘 [Dataverse Deep-Dive](./learning-material/Dataverse-DeepDive.md) | Data Model & Configuration | Tables, columns, relationships, security |
-| 📗 [Canvas Apps Deep-Dive](./learning-material/CanvasApps-DeepDive.md) | Canvas Application Development | Responsive design, data sources, formulas |
-| 📕 [Model-Driven Apps Deep-Dive](./learning-material/ModelDrivenApps-DeepDive.md) | Model-Driven Application Development | Forms, views, navigation, charts |
+| 📗 [Canvas Apps Deep-Dive](./learning-material/CanvasApps-DeepDive.md) | Canvas Application Development | Data sources, formulas, delegation, components |
+| 📗 [Canvas Apps - Responsive Design](./learning-material/CanvasApps-ResponsiveDesign-DeepDive.md) | Responsive Layout Techniques | Parent operator, auto-layout, mobile-first design |
+| 📕 [Model-Driven Apps Deep-Dive](./learning-material/ModelDrivenApps-DeepDive.md) | Model-Driven Application Development | Forms, views, navigation, PCF, custom pages |
 | 📙 [Power Automate Deep-Dive](./learning-material/PowerAutomate-DeepDive.md) | Process Automation | Cloud flows, triggers, actions, error handling |
 | 📓 [Business Process Flows Deep-Dive](./learning-material/BPF-DeepDive.md) | Process Guidance | BPF configuration, branching, stages |
 | 📔 [Power Pages Deep-Dive](./learning-material/PowerPages-DeepDive.md) | External Portal Development | Portal security, entity forms, web roles |
-| 📕 [Integration Deep-Dive](./learning-material/Integration-DeepDive.md) | System Integration | Connectors, APIs, data synchronization |
+| 🔗 [Integration Deep-Dive](./learning-material/Integration-DeepDive.md) | System Integration | Connectors, APIs, data synchronization |
+| 🔄 [Power Query & Data Integration](./learning-material/PowerQuery-DataIntegration-DeepDive.md) | ETL & Data Transformation | Power Query, dataflows, query folding |
+| 🔐 [Security & Permissions Deep-Dive](./learning-material/Security-Permissions-DeepDive.md) | Comprehensive Security Model | Row-level, column-level, teams, business units |
+| ⚙️ [Environment Variables & ALM](./learning-material/EnvironmentVariables-ALM-DeepDive.md) | Configuration & Deployment | Environment variables, ALM, solutions |
+
+**📚 For a complete study path and topic coverage matrix, see [STUDY-GUIDE-INDEX.md](./STUDY-GUIDE-INDEX.md)**
 
 ---
 
@@ -177,23 +183,29 @@ Curated list of external resources:
 
 ```
 PL-200/
-├── README.md                               (You are here)
+├── README.md                                        (You are here)
+├── STUDY-GUIDE-INDEX.md                             (Complete study guide index & learning path)
 ├── exam-info/
-│   ├── Exam-Info.md                        (Exam details & registration)
-│   ├── Exam-Prep-Guide.md                  (Preparation strategies)
-│   └── Study-Resources.md                  (External resources)
+│   ├── Exam-Info.md                                 (Exam details & registration)
+│   ├── Exam-Prep-Guide.md                           (Preparation strategies)
+│   └── Study-Resources.md                           (External resources)
 ├── learning-material/
-│   ├── Study-Guide.md                      (Main study material)
-│   ├── Practice-Quiz.md                    (Interactive quiz)
-│   ├── Dataverse-DeepDive.md               (Dataverse configuration)
-│   ├── CanvasApps-DeepDive.md              (Canvas app development)
-│   ├── ModelDrivenApps-DeepDive.md         (Model-driven app development)
-│   ├── PowerAutomate-DeepDive.md           (Process automation)
-│   ├── BPF-DeepDive.md                     (Business process flows)
-│   ├── PowerPages-DeepDive.md              (Portal development)
-│   └── Integration-DeepDive.md             (System integration)
+│   ├── Study-Guide.md                               (Main study material)
+│   ├── Practice-Quiz.md                             (Interactive quiz)
+│   ├── Dataverse-DeepDive.md                        (Dataverse configuration)
+│   ├── CanvasApps-DeepDive.md                       (Canvas app development)
+│   ├── CanvasApps-ResponsiveDesign-DeepDive.md      (Responsive design techniques)
+│   ├── ModelDrivenApps-DeepDive.md                  (Model-driven apps, PCF, custom pages)
+│   ├── PowerAutomate-DeepDive.md                    (Process automation & error handling)
+│   ├── BPF-DeepDive.md                              (Business process flows)
+│   ├── PowerPages-DeepDive.md                       (Portal development)
+│   ├── Integration-DeepDive.md                      (System integration)
+│   ├── PowerQuery-DataIntegration-DeepDive.md       (ETL & data transformation)
+│   ├── Security-Permissions-DeepDive.md             (Security model & permissions)
+│   ├── EnvironmentVariables-ALM-DeepDive.md         (Configuration & deployment)
+│   └── Leads-Opportunities-DeepDive.md              (Sales process management)
 └── exam-questions/
-    └── Real-Exam-Questions.md              (Practice questions)
+    └── Real-Exam-Questions.md                       (Practice questions)
 ```
 
 ---
